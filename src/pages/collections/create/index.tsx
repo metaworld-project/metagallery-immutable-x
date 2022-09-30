@@ -18,7 +18,6 @@ type FormValues = {
   icon_url?: string;
   collection_image_url?: string;
   contract_address: string;
-  metadata_api_url?: string;
 };
 
 const CreateCollectionPage: NextPage = () => {
@@ -63,12 +62,12 @@ const CreateCollectionPage: NextPage = () => {
       return;
     }
     setIsLoading(true);
-    const wallet = new ethers.Wallet(owner_private_key);
-    const owner_public_key = wallet.publicKey;
-
     try {
+      const wallet = new ethers.Wallet(owner_private_key);
+      const owner_public_key = wallet.publicKey;
       await client.createCollection(walletConnection.l1Signer, {
         ...data,
+        metadata_api_url: `https://mint.brolab.io/api/metadata/${data.contract_address}`,
         owner_public_key,
       });
       await addMetadataToCollection(data.contract_address);
@@ -167,16 +166,6 @@ const CreateCollectionPage: NextPage = () => {
             helperText={errors.contract_address?.message}
             label="Collection contract address"
             placeholder="0x0000000000000000000000000000000000000000"
-            fullWidth
-            size="lg"
-          />
-          <Spacer y={1} />
-          <Input
-            {...register("metadata_api_url")}
-            helperColor="error"
-            helperText={errors.metadata_api_url?.message}
-            label="Metadata API URL"
-            placeholder="https://example.com/api/example"
             fullWidth
             size="lg"
           />

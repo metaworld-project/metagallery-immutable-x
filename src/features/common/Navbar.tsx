@@ -23,13 +23,14 @@ const menus = [
     title: "Collections",
     href: "/collections",
   },
-  // {
-  //   title: "NFTs",
-  //   href: "/nfts",
-  // },
   {
     title: "Mint Token",
     href: "/nfts/mint",
+  },
+  {
+    title: "My Assets",
+    href: "https://market.sandbox.immutable.com/inventory",
+    target: "_blank",
   },
   {
     title: "View Your Collection in 3D Gallery",
@@ -74,8 +75,8 @@ const Navbar = () => {
         {menus.map((menu, index) => {
           const isActive = location.pathname === menu.href;
           return (
-            <Link key={index} href={menu.href} passHref>
-              <NextUINavbar.Link isActive={isActive} as="a">
+            <Link target={menu.target} key={index} href={menu.href} passHref>
+              <NextUINavbar.Link isActive={isActive} as="a" target={menu.target}>
                 <span className="font-medium text-[16px]">{menu.title}</span>
               </NextUINavbar.Link>
             </Link>
