@@ -1,6 +1,9 @@
 ## Website: 
 https://mint.brolab.io/ 
 
+## Video demo
+https://youtu.be/f_c37Cqj61k 
+
 ## Step 1: Create Project
 - Config company name
 - Config contact email
