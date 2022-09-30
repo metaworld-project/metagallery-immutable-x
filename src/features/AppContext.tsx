@@ -68,6 +68,10 @@ const AppContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
         starkSigner: connection.l2Signer,
       });
     }
+    console.log({
+      ethSigner: connection.l1Signer,
+      starkSigner: connection.l2Signer,
+    });
 
     setWalletConnection(connection);
     setAddress(address);

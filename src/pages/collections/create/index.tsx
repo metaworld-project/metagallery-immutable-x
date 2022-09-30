@@ -12,6 +12,7 @@ type FormValues = {
   name: string;
   project_id: number;
   description?: string;
+  owner_public_key: string;
   icon_url?: string;
   collection_image_url?: string;
   contract_address: string;
@@ -38,7 +39,7 @@ const CreateCollectionPage: NextPage = () => {
       setIsLoading(true);
       try {
         await client.addMetadataSchemaToCollection(walletConnection.l1Signer, contractAddress, {
-          metadata: metadata.map((m) => ({ name: m, type: "text", filterable: true })),
+          metadata: metadata.map((m) => ({ name: m, type: "text", filterable: false })),
         });
         toast.success("Metadata added to collection");
       } catch (error) {
@@ -55,15 +56,16 @@ const CreateCollectionPage: NextPage = () => {
     [metadata, walletConnection, address, client]
   );
 
-  const onSubmit = handleSubmit(async (data) => {
+  const onSubmit = handleSubmit(async ({ owner_public_key, ...data }) => {
     if (!walletConnection || !address) {
       return;
     }
     setIsLoading(true);
+
     try {
       await client.createCollection(walletConnection.l1Signer, {
         ...data,
-        owner_public_key: address,
+        owner_public_key,
       });
       await addMetadataToCollection(data.contract_address);
       toast.success("Collection created");
@@ -91,6 +93,18 @@ const CreateCollectionPage: NextPage = () => {
           )}
           rules={{ required: "Project is required" }}
         />
+        <Input
+          {...register("owner_public_key", {
+            required: "Public key is required",
+          })}
+          helperColor="error"
+          helperText={errors.owner_public_key?.message}
+          label="Public key"
+          placeholder="Public key"
+          fullWidth
+          size="lg"
+        />
+        <Spacer y={1} />
         <Input
           {...register("name", {
             required: "Collection name is required",
