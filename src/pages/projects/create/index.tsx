@@ -66,7 +66,7 @@ const CreateProjectPage: NextPage = () => {
           fullWidth
           size="lg"
         />
-        <Spacer y={2} />
+        <Spacer y={1} />
         <Input
           {...register("contact_email", {
             required: "Contact email is required",
@@ -82,7 +82,7 @@ const CreateProjectPage: NextPage = () => {
           fullWidth
           size="lg"
         />
-        <Spacer y={2} />
+        <Spacer y={1} />
         <Input
           {...register("name", {
             required: "Project name is required",
@@ -102,7 +102,7 @@ const CreateProjectPage: NextPage = () => {
           fullWidth
           size="lg"
         />
-        <Spacer y={2} />
+        <Spacer y={1} />
         <Button type="submit" color="primary">
           {isLoading ? <Loading type="spinner" /> : null}
           <span className="ml-2">Create Project</span>

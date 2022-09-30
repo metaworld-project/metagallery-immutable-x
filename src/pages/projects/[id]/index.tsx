@@ -1,15 +1,17 @@
-import { CollectionsApiListCollectionsRequest, Project } from "@imtbl/core-sdk";
+import { CollectionFilter, Project } from "@imtbl/core-sdk";
 import { Container, Text } from "@nextui-org/react";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { useAppContext } from "../../../features/AppContext";
+import ListCollections from "../../../features/Collections/components/ListCollections";
 
 const ProjectPage: NextPage = () => {
   const { walletConnection, client } = useAppContext();
   const [project, setProject] = useState<Project>();
-  const [collectionResponse, setCollectionResponse] =
-    useState<CollectionsApiListCollectionsRequest>();
+  const [collectionResponse, setCollectionResponse] = useState<CollectionFilter>();
+  const [isFetching, setIsFetching] = useState(false);
   const router = useRouter();
   const id = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id;
 
@@ -17,17 +19,30 @@ const ProjectPage: NextPage = () => {
     if (!walletConnection || !id) {
       return;
     }
-    const _project = await client.getProject(walletConnection.l1Signer, id as string);
-    console.log("project", _project);
-    setProject(_project);
+    setIsFetching(true);
+    try {
+      const _project = await client.getProject(walletConnection.l1Signer, id as string);
+      console.log("project", _project);
+      setProject(_project);
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("Could not fetch projects");
+      }
+      console.log(error);
+    } finally {
+      setIsFetching(false);
+    }
   }, [id, walletConnection, client]);
 
   const getCollections = useCallback(async () => {
     if (!walletConnection || !id) {
       return;
     }
-    const _collectionResponse = await client.listCollections({
+    const _collectionResponse = await client.listCollectionFilters({
       pageSize: 12,
+      address: process.env.NEXT_PUBLIC_IMMUTABLE_COLLECTION_CONTRACT_ADDRESS!,
     });
     console.log("collectionResponse", _collectionResponse);
     setCollectionResponse(_collectionResponse);
@@ -54,6 +69,7 @@ const ProjectPage: NextPage = () => {
       <Text h2 size={28}>
         Collections
       </Text>
+      <ListCollections isFetching={false} data={collectionResponse} />
     </Container>
   );
 };

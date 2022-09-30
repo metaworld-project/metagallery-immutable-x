@@ -11,13 +11,25 @@ const menus = [
     title: "Home",
     href: "/",
   },
-  {
-    title: "Marketplace",
-    href: "/marketplace",
-  },
+  // {
+  //   title: "Marketplace",
+  //   href: "/marketplace",
+  // },
   {
     title: "Projects",
     href: "/projects",
+  },
+  {
+    title: "Collections",
+    href: "/collections",
+  },
+  // {
+  //   title: "NFTs",
+  //   href: "/nfts",
+  // },
+  {
+    title: "Mint Token",
+    href: "/nfts/mint",
   },
 ];
 
@@ -67,11 +79,11 @@ const Navbar = () => {
         })}
       </NextUINavbar.Content>
       <NextUINavbar.Content>
-        <NextUINavbar.Item>
+        {/* <NextUINavbar.Item>
           <Button auto color="secondary" flat>
             <span className="font-semibold">0 BRO2</span>
           </Button>
-        </NextUINavbar.Item>
+        </NextUINavbar.Item> */}
         <NextUINavbar.Item>
           {isConnected ? (
             <Button color="gradient" auto>

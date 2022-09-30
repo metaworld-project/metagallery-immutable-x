@@ -36,7 +36,7 @@ const ListProjects: React.FC<Props> = ({ data, isFetching }) => {
     );
   }
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {data.result.map((project) => (
         <NextLink
           href={`/projects/${project.id}`}

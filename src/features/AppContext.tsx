@@ -9,7 +9,7 @@ import {
 } from "react";
 import { ENVIRONMENTS, WalletSDK, L1_PROVIDERS, WalletConnection } from "@imtbl/wallet-sdk-web";
 import useGlobalStore from "./store";
-import { ImmutableX, Config } from "@imtbl/core-sdk";
+import { ImmutableX, Config, ImmutableXConfiguration } from "@imtbl/core-sdk";
 
 type TAppContext = {
   walletSDK: WalletSDK;
@@ -21,7 +21,12 @@ type TAppContext = {
 
 const AppContext = createContext<TAppContext>({} as TAppContext);
 
-const config = Config.SANDBOX;
+const config: ImmutableXConfiguration = Config.createConfig({
+  chainID: 5,
+  basePath: process.env.NEXT_PUBLIC_IMMUTABLE_API_URL!,
+  coreContractAddress: process.env.NEXT_PUBLIC_IMMUTABLE_STARK_CONTRACT_ADDRESS!,
+  registrationContractAddress: process.env.NEXT_PUBLIC_IMMUTABLE_REGISTRATION_ADDRESS!,
+});
 
 const AppContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [walletSDK, setWalletSDK] = useState<WalletSDK | null>(null);
@@ -53,9 +58,20 @@ const AppContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
       provider: L1_PROVIDERS.METAMASK,
     });
     const address = await connection.l1Signer.getAddress();
+
+    try {
+      await client.getUser(address);
+    } catch (error) {
+      console.log(`Registering user ${address}`);
+      await client.registerOffchain({
+        ethSigner: connection.l1Signer,
+        starkSigner: connection.l2Signer,
+      });
+    }
+
     setWalletConnection(connection);
     setAddress(address);
-  }, [walletSDK]);
+  }, [walletSDK, client]);
 
   useEffect(() => {
     initWalletSDK();
