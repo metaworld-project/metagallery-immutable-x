@@ -1,4 +1,4 @@
-import { Button, Container, Input, Loading, Spacer } from "@nextui-org/react";
+import { Button, Container, Input, Link, Loading, Spacer, Text } from "@nextui-org/react";
 import { NextPage } from "next";
 import { NextSeo } from "next-seo";
 import { useState } from "react";
@@ -114,11 +114,15 @@ const MintNFTPage: NextPage = () => {
             {...register("image_url")}
             helperColor="error"
             helperText={errors.image_url?.message}
-            label="Token image url"
-            placeholder="https://example.com/image.png"
+            label="Token image url (https://imgbb.com/)"
+            placeholder="https://i.ibb.co/Yk3T113/Master-ai-3.png"
             fullWidth
             size="lg"
           />
+          <div className="flex space-x-2">
+            <span>Upload image to</span> <Link href="https://imgbb.com/">https://imgbb.com/</Link>{" "}
+            <span>and paste the link here</span>
+          </div>
           <Spacer y={1} />
           <Button disabled={isLoading} type="submit" color="primary">
             {isLoading ? <Loading type="spinner" /> : null}

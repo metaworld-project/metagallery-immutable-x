@@ -8,12 +8,13 @@ import { useAppContext } from "../../../features/AppContext";
 import { useRouter } from "next/router";
 import SelectProject from "../../../features/Collections/components/SelectProject";
 import { NextSeo } from "next-seo";
+import { ethers } from "ethers";
 
 type FormValues = {
   name: string;
   project_id: number;
   description?: string;
-  owner_public_key: string;
+  owner_private_key: string;
   icon_url?: string;
   collection_image_url?: string;
   contract_address: string;
@@ -57,11 +58,13 @@ const CreateCollectionPage: NextPage = () => {
     [metadata, walletConnection, address, client]
   );
 
-  const onSubmit = handleSubmit(async ({ owner_public_key, ...data }) => {
+  const onSubmit = handleSubmit(async ({ owner_private_key, ...data }) => {
     if (!walletConnection || !address) {
       return;
     }
     setIsLoading(true);
+    const wallet = new ethers.Wallet(owner_private_key);
+    const owner_public_key = wallet.publicKey;
 
     try {
       await client.createCollection(walletConnection.l1Signer, {
@@ -97,13 +100,13 @@ const CreateCollectionPage: NextPage = () => {
             rules={{ required: "Project is required" }}
           />
           <Input
-            {...register("owner_public_key", {
-              required: "Public key is required",
+            {...register("owner_private_key", {
+              required: "Private key is required",
             })}
             helperColor="error"
-            helperText={errors.owner_public_key?.message}
-            label="Public key"
-            placeholder="Public key"
+            helperText={errors.owner_private_key?.message}
+            label="Private key"
+            placeholder="Private key"
             fullWidth
             size="lg"
           />

@@ -31,6 +31,10 @@ const menus = [
     title: "Mint Token",
     href: "/nfts/mint",
   },
+  {
+    title: "View Your Collection in 3D Gallery",
+    href: "/collections/view",
+  },
 ];
 
 const Navbar = () => {
