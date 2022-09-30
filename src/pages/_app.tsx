@@ -6,18 +6,22 @@ import AppContextProvider from "../features/AppContext";
 import LoadingOverlay from "../features/common/LoadingOverlay";
 import MainLayout from "../features/common/MainLayout";
 import { ToastContainer } from "react-toastify";
+import { DefaultSeo } from "next-seo";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <NextUIProvider>
-      <AppContextProvider>
-        <MainLayout>
-          <Component {...pageProps} />
-        </MainLayout>
-        <ToastContainer />
-        <LoadingOverlay />
-      </AppContextProvider>
-    </NextUIProvider>
+    <>
+      <DefaultSeo titleTemplate="%s | MetaGallery" />
+      <NextUIProvider>
+        <AppContextProvider>
+          <MainLayout>
+            <Component {...pageProps} />
+          </MainLayout>
+          <ToastContainer />
+          <LoadingOverlay />
+        </AppContextProvider>
+      </NextUIProvider>
+    </>
   );
 }
 

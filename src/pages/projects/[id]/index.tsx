@@ -1,6 +1,7 @@
 import { CollectionFilter, Project } from "@imtbl/core-sdk";
 import { Container, Text } from "@nextui-org/react";
 import { NextPage } from "next";
+import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -62,15 +63,18 @@ const ProjectPage: NextPage = () => {
     return null;
   }
   return (
-    <Container lg css={{ py: 20 }}>
-      <Text h1 size={32}>
-        Project {project.name}
-      </Text>
-      <Text h2 size={28}>
-        Collections
-      </Text>
-      <ListCollections isFetching={false} data={collectionResponse} />
-    </Container>
+    <>
+      <NextSeo title="Project Detail" />
+      <Container lg css={{ py: 20 }}>
+        <Text h1 size={32}>
+          Project {project.name}
+        </Text>
+        <Text h2 size={28}>
+          Collections
+        </Text>
+        <ListCollections isFetching={false} data={collectionResponse} />
+      </Container>
+    </>
   );
 };
 

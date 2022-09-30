@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useAppContext } from "../../features/AppContext";
 import ListCollections from "../../features/Collections/components/ListCollections";
+import { NextSeo } from "next-seo";
 
 const CollectionsPage: NextPage = () => {
   const { walletConnection, client, address } = useAppContext();
@@ -48,23 +49,26 @@ const CollectionsPage: NextPage = () => {
   }, [getCollections]);
 
   return (
-    <Container lg css={{ py: 20 }}>
-      <div className="flex items-center space-x-6">
-        <Text h1 size={32}>
-          Collections
-        </Text>
-        <Button
-          onPress={navigateToCreateCollection}
-          auto
-          color="secondary"
-          size="sm"
-          css={{ mt: -4 }}
-        >
-          Create New Collection
-        </Button>
-      </div>
-      {/* <ListCollections isFetching={isFetching} data={collectionResponse} /> */}
-    </Container>
+    <>
+      <NextSeo title="Collections" />
+      <Container lg css={{ py: 20 }}>
+        <div className="flex items-center space-x-6">
+          <Text h1 size={32}>
+            Collections
+          </Text>
+          <Button
+            onPress={navigateToCreateCollection}
+            auto
+            color="secondary"
+            size="sm"
+            css={{ mt: -4 }}
+          >
+            Create New Collection
+          </Button>
+        </div>
+        {/* <ListCollections isFetching={isFetching} data={collectionResponse} /> */}
+      </Container>
+    </>
   );
 };
 

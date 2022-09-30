@@ -1,7 +1,5 @@
 import { NextPage } from "next";
-import { useCallback, useEffect, useState } from "react";
-import { useAppContext } from "../../features/AppContext";
-import { GetProjectsResponse } from "@imtbl/core-sdk";
+import { useCallback } from "react";
 import { Button, Container, Text } from "@nextui-org/react";
 import ListProjects from "../../features/Projects/components/ListProjects";
 import { useListProjects } from "../../features/Projects/services/project.service";
@@ -17,7 +15,7 @@ const ProjectsPage: NextPage = () => {
   }, []);
   return (
     <>
-      <NextSeo title="" />
+      <NextSeo title="Projects" />
       <Container lg css={{ py: 20 }}>
         <div className="flex items-center space-x-6">
           <Text h1 size={32}>

@@ -6,6 +6,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { useAppContext } from "../../../features/AppContext";
 import { useRouter } from "next/router";
+import { NextSeo } from "next-seo";
 
 type FormValues = {
   company_name: string;
@@ -45,70 +46,73 @@ const CreateProjectPage: NextPage = () => {
   });
 
   return (
-    <Container xs css={{ py: 40 }}>
-      <form onSubmit={onSubmit}>
-        <Input
-          {...register("company_name", {
-            required: "Company name is required",
-            minLength: {
-              value: 3,
-              message: "Company name must be at least 3 characters",
-            },
-            maxLength: {
-              value: 50,
-              message: "Company name must be at most 50 characters",
-            },
-          })}
-          helperColor="error"
-          helperText={errors.company_name?.message}
-          label="Company's name"
-          placeholder="My Company"
-          fullWidth
-          size="lg"
-        />
-        <Spacer y={1} />
-        <Input
-          {...register("contact_email", {
-            required: "Contact email is required",
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: "Invalid email address",
-            },
-          })}
-          helperColor="error"
-          helperText={errors.contact_email?.message}
-          label="Contact email"
-          placeholder="project@company.com"
-          fullWidth
-          size="lg"
-        />
-        <Spacer y={1} />
-        <Input
-          {...register("name", {
-            required: "Project name is required",
-            minLength: {
-              value: 3,
-              message: "Project name must be at least 3 characters",
-            },
-            maxLength: {
-              value: 32,
-              message: "Project name must be at most 32 characters",
-            },
-          })}
-          helperColor="error"
-          helperText={errors.name?.message}
-          label="Project's name"
-          placeholder="My First Project"
-          fullWidth
-          size="lg"
-        />
-        <Spacer y={1} />
-        <Button type="submit" color="primary">
-          {isLoading ? <Loading type="spinner" /> : null}
-          <span className="ml-2">Create Project</span>
-        </Button>
-      </form>
-    </Container>
+    <>
+      <NextSeo title="Create Project" />
+      <Container xs css={{ py: 40 }}>
+        <form onSubmit={onSubmit}>
+          <Input
+            {...register("company_name", {
+              required: "Company name is required",
+              minLength: {
+                value: 3,
+                message: "Company name must be at least 3 characters",
+              },
+              maxLength: {
+                value: 50,
+                message: "Company name must be at most 50 characters",
+              },
+            })}
+            helperColor="error"
+            helperText={errors.company_name?.message}
+            label="Company's name"
+            placeholder="My Company"
+            fullWidth
+            size="lg"
+          />
+          <Spacer y={1} />
+          <Input
+            {...register("contact_email", {
+              required: "Contact email is required",
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "Invalid email address",
+              },
+            })}
+            helperColor="error"
+            helperText={errors.contact_email?.message}
+            label="Contact email"
+            placeholder="project@company.com"
+            fullWidth
+            size="lg"
+          />
+          <Spacer y={1} />
+          <Input
+            {...register("name", {
+              required: "Project name is required",
+              minLength: {
+                value: 3,
+                message: "Project name must be at least 3 characters",
+              },
+              maxLength: {
+                value: 32,
+                message: "Project name must be at most 32 characters",
+              },
+            })}
+            helperColor="error"
+            helperText={errors.name?.message}
+            label="Project's name"
+            placeholder="My First Project"
+            fullWidth
+            size="lg"
+          />
+          <Spacer y={1} />
+          <Button type="submit" color="primary">
+            {isLoading ? <Loading type="spinner" /> : null}
+            <span className="ml-2">Create Project</span>
+          </Button>
+        </form>
+      </Container>
+    </>
   );
 };
 

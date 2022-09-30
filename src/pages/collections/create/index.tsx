@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { useAppContext } from "../../../features/AppContext";
 import { useRouter } from "next/router";
 import SelectProject from "../../../features/Collections/components/SelectProject";
+import { NextSeo } from "next-seo";
 
 type FormValues = {
   name: string;
@@ -83,130 +84,133 @@ const CreateCollectionPage: NextPage = () => {
   });
 
   return (
-    <Container xs css={{ py: 40 }}>
-      <form onSubmit={onSubmit}>
-        <Controller
-          control={control}
-          name="project_id"
-          render={({ field: { onChange, value } }) => (
-            <SelectProject onSelect={onChange} selectedProjectId={value} />
-          )}
-          rules={{ required: "Project is required" }}
-        />
-        <Input
-          {...register("owner_public_key", {
-            required: "Public key is required",
-          })}
-          helperColor="error"
-          helperText={errors.owner_public_key?.message}
-          label="Public key"
-          placeholder="Public key"
-          fullWidth
-          size="lg"
-        />
-        <Spacer y={1} />
-        <Input
-          {...register("name", {
-            required: "Collection name is required",
-            minLength: {
-              value: 3,
-              message: "Collection name must be at least 3 characters",
-            },
-            maxLength: {
-              value: 50,
-              message: "Collection name must be at most 50 characters",
-            },
-          })}
-          helperColor="error"
-          helperText={errors.name?.message}
-          label="Collection's name"
-          placeholder="My collection"
-          fullWidth
-          size="lg"
-        />
-        <Spacer y={1} />
-        <Input
-          {...register("description")}
-          helperColor="error"
-          helperText={errors.description?.message}
-          label="Collection description"
-          placeholder="My collection description"
-          fullWidth
-          size="lg"
-        />
-        <Spacer y={1} />
-        <Input
-          {...register("icon_url")}
-          helperColor="error"
-          helperText={errors.icon_url?.message}
-          label="Collection's icon"
-          placeholder="https://example.com/icon.png"
-          fullWidth
-          size="lg"
-        />
-        <Spacer y={1} />
-        <Input
-          {...register("collection_image_url")}
-          helperColor="error"
-          helperText={errors.collection_image_url?.message}
-          label="Collection's image"
-          placeholder="https://example.com/image.png"
-          fullWidth
-          size="lg"
-        />
-        <Spacer y={1} />
-        <Input
-          {...register("contract_address")}
-          helperColor="error"
-          helperText={errors.contract_address?.message}
-          label="Collection contract address"
-          placeholder="0x0000000000000000000000000000000000000000"
-          fullWidth
-          size="lg"
-        />
-        <Spacer y={1} />
-        <Input
-          {...register("metadata_api_url")}
-          helperColor="error"
-          helperText={errors.metadata_api_url?.message}
-          label="Metadata API URL"
-          placeholder="https://example.com/api/example"
-          fullWidth
-          size="lg"
-        />
-        <Spacer y={1} />
-        <Checkbox.Group
-          color="secondary"
-          value={metadata}
-          onChange={setMetadata}
-          label="Core properties"
-        >
-          <Checkbox size="sm" value="name">
-            Name
-          </Checkbox>
-          <Checkbox size="sm" value="description">
-            Description
-          </Checkbox>
-          <Checkbox size="sm" value="image_url">
-            Image URL
-          </Checkbox>
-          <Checkbox size="sm" value="animation_url">
-            Animation URL
-          </Checkbox>
-          <Checkbox size="sm" value="animation_url_mime_type">
-            Animation URL Mime Type
-          </Checkbox>
-          <Checkbox size="sm" value="youtube_url">
-            Youtube URL
-          </Checkbox>
-        </Checkbox.Group>
-        <Spacer y={1} />
-        <Button type="submit" color="primary">
-          {isLoading ? <Loading type="spinner" /> : null}
-          <span className="ml-2">Create Collection</span>
-        </Button>
-      </form>
-    </Container>
+    <>
+      <NextSeo title="Create collection" />
+      <Container xs css={{ py: 40 }}>
+        <form onSubmit={onSubmit}>
+          <Controller
+            control={control}
+            name="project_id"
+            render={({ field: { onChange, value } }) => (
+              <SelectProject onSelect={onChange} selectedProjectId={value} />
+            )}
+            rules={{ required: "Project is required" }}
+          />
+          <Input
+            {...register("owner_public_key", {
+              required: "Public key is required",
+            })}
+            helperColor="error"
+            helperText={errors.owner_public_key?.message}
+            label="Public key"
+            placeholder="Public key"
+            fullWidth
+            size="lg"
+          />
+          <Spacer y={1} />
+          <Input
+            {...register("name", {
+              required: "Collection name is required",
+              minLength: {
+                value: 3,
+                message: "Collection name must be at least 3 characters",
+              },
+              maxLength: {
+                value: 50,
+                message: "Collection name must be at most 50 characters",
+              },
+            })}
+            helperColor="error"
+            helperText={errors.name?.message}
+            label="Collection's name"
+            placeholder="My collection"
+            fullWidth
+            size="lg"
+          />
+          <Spacer y={1} />
+          <Input
+            {...register("description")}
+            helperColor="error"
+            helperText={errors.description?.message}
+            label="Collection description"
+            placeholder="My collection description"
+            fullWidth
+            size="lg"
+          />
+          <Spacer y={1} />
+          <Input
+            {...register("icon_url")}
+            helperColor="error"
+            helperText={errors.icon_url?.message}
+            label="Collection's icon"
+            placeholder="https://example.com/icon.png"
+            fullWidth
+            size="lg"
+          />
+          <Spacer y={1} />
+          <Input
+            {...register("collection_image_url")}
+            helperColor="error"
+            helperText={errors.collection_image_url?.message}
+            label="Collection's image"
+            placeholder="https://example.com/image.png"
+            fullWidth
+            size="lg"
+          />
+          <Spacer y={1} />
+          <Input
+            {...register("contract_address")}
+            helperColor="error"
+            helperText={errors.contract_address?.message}
+            label="Collection contract address"
+            placeholder="0x0000000000000000000000000000000000000000"
+            fullWidth
+            size="lg"
+          />
+          <Spacer y={1} />
+          <Input
+            {...register("metadata_api_url")}
+            helperColor="error"
+            helperText={errors.metadata_api_url?.message}
+            label="Metadata API URL"
+            placeholder="https://example.com/api/example"
+            fullWidth
+            size="lg"
+          />
+          <Spacer y={1} />
+          <Checkbox.Group
+            color="secondary"
+            value={metadata}
+            onChange={setMetadata}
+            label="Core properties"
+          >
+            <Checkbox size="sm" value="name">
+              Name
+            </Checkbox>
+            <Checkbox size="sm" value="description">
+              Description
+            </Checkbox>
+            <Checkbox size="sm" value="image_url">
+              Image URL
+            </Checkbox>
+            <Checkbox size="sm" value="animation_url">
+              Animation URL
+            </Checkbox>
+            <Checkbox size="sm" value="animation_url_mime_type">
+              Animation URL Mime Type
+            </Checkbox>
+            <Checkbox size="sm" value="youtube_url">
+              Youtube URL
+            </Checkbox>
+          </Checkbox.Group>
+          <Spacer y={1} />
+          <Button type="submit" color="primary">
+            {isLoading ? <Loading type="spinner" /> : null}
+            <span className="ml-2">Create Collection</span>
+          </Button>
+        </form>
+      </Container>
+    </>
   );
 };
 
