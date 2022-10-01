@@ -34,8 +34,8 @@ https://youtu.be/f_c37Cqj61k
 - NFT minted will apear in your assets https://market.sandbox.immutable.com/inventory 
 - We create a gallery to display your NFTs at: https://3d.brolab.io/gallery-rfox/?collection={contract-address}
 
-## API
-
+## SDK:
+https://docs.x.immutable.com/sdk-references/core-sdk-ts/1.0.0-beta.2/classes/immutablex.immutablex 
 
 ## Upcoming Feature
 - Bulk Mint
