@@ -3,7 +3,6 @@ https://mint.brolab.io/
 
 ## Video demo
 https://youtu.be/f_c37Cqj61k 
-[![Alternate Text]({image-url})]({https://youtu.be/f_c37Cqj61k} "Demo")
 
 ## Step 1: Create Project
 - Config company name
